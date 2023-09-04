@@ -19,5 +19,8 @@
     "rimraf": "^5.0.1",
     "ts-node": "^10.9.1",
     "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.2.0"
   }
 }
