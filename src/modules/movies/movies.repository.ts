@@ -1,11 +1,16 @@
-import { PrismaClient } from '@prisma/client'
-
-const prisma = new PrismaClient()
+import { Prisma, PrismaClient } from '@prisma/client'
+import { prismaService } from '../../utils/prisma'
 
 export class MoviesRepository {
+  private db: PrismaClient
+
+  constructor(db: PrismaClient) {
+    this.db = db
+  }
+
   async getAll() {
-    return await prisma.movie.findMany()
+    return await this.db.movie.findMany()
   }
 }
 
-export const moviesRepository = new MoviesRepository()
+export const moviesRepository = new MoviesRepository(prismaService)
