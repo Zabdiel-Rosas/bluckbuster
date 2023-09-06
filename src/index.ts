@@ -1,8 +1,6 @@
-const readline = require('readline')
-import { PrismaClient } from '@prisma/client'
+import readline from 'readline'
+import { prismaService } from './utils/prisma'
 import router from './modules/movies/movies.router'
-
-const prisma = new PrismaClient()
 
 // Create interface for reading and writing from/to the terminal
 const rl = readline.createInterface({
@@ -32,7 +30,10 @@ function startApp() {
   rl.question('Select an option from the menu: ', (answer: string) => {
     const choice = parseInt(answer) - 1
 
-    if (menuOptions[choice] === 'Exit') {
+    if (isNaN(choice) || choice < -1 || choice > menuOptions.length) {
+      console.log('Please enter a valid option\n\n')
+      startApp()
+    } else if (menuOptions[choice] === 'Exit') {
       console.log('Exiting the application')
       rl.close()
     } else {
@@ -40,11 +41,11 @@ function startApp() {
 
       router(choice)
         .then(async () => {
-          await prisma.$disconnect()
+          await prismaService.$disconnect()
         })
         .catch(async (e: any) => {
           console.error(e)
-          await prisma.$disconnect()
+          await prismaService.$disconnect()
           process.exit()
         })
     }
