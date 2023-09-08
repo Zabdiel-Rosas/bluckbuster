@@ -7,8 +7,8 @@ export class MoviesService {
     this.repository = repository
   }
 
-  getAllMovies() {
-    return this.repository.getAll()
+  async getAllMovies() {
+    return await this.repository.getAll()
   }
 }
 
