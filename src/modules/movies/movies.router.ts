@@ -1,14 +1,11 @@
-import { moviesService } from './movies.service'
+import { ACTIONS } from '../../utils/actions'
 
-async function router(choice: number) {
-  switch (choice) {
-    case 0:
-      const allMovies = await moviesService.getAllMovies()
-      console.log(allMovies)
-      break
-    default:
-      break
+async function router(choice: keyof typeof ACTIONS) {
+  const handler = ACTIONS[choice]
+  if (!handler) {
+    return 'Action not found for choice ' + choice
   }
+  handler()
 }
 
 export default router
