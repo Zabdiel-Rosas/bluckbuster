@@ -11,6 +11,14 @@ export class MoviesRepository {
   async getAll() {
     return await this.movieStorage.findMany()
   }
+
+  async getById(id: number) {
+    return await this.movieStorage.findUnique({
+      where: {
+        id,
+      },
+    })
+  }
 }
 
 export const moviesRepository = new MoviesRepository(movieStorage)
