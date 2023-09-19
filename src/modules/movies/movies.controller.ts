@@ -8,12 +8,12 @@ class MoviesController {
     this.service = service
   }
 
-  async getAllMovies() {
+  async get() {
     const movies = await this.service.getAllMovies()
     console.log(movies)
   }
 
-  async getMovie(id: number) {
+  async getById(id: number) {
     if (id > 0) {
       const movie = await this.service.getMovie(id)
       if (movie) {
