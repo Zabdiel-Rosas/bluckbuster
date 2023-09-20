@@ -19,6 +19,10 @@ export class MoviesRepository {
       },
     })
   }
+
+  async create(movie: Prisma.MovieCreateInput) {
+    return await this.movieStorage.create({ data: movie })
+  }
 }
 
 export const moviesRepository = new MoviesRepository(movieStorage)
