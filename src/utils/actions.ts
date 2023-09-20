@@ -1,5 +1,6 @@
 import { moviesController } from '../modules/movies/movies.controller'
 import { rlManager } from './readlineManager'
+import { Movie } from '../modules/movies/movies.types'
 
 export const ACTIONS = {
   GET_ALL_MOVIES: () => moviesController.get(),
@@ -11,13 +12,6 @@ export const ACTIONS = {
   },
   CREATE_MOVIE: () => {
     console.log('Please enter the next fields for the movie:\n')
-
-    interface Movie {
-      name: string
-      description: string
-      year: number
-      genre: string
-    }
 
     const movie: Movie = {
       name: 'default',
@@ -40,11 +34,10 @@ export const ACTIONS = {
         ;(movie[key] as string | number) = value
 
         const remainingProperties = getRemainingProperties(key)
-        console.log('remainingPropertys: ', remainingProperties)
 
         if (remainingProperties.length === 0) {
-          console.log('new movie object: ', movie)
           rlManager.close()
+          return moviesController.post(movie)
         } else {
           updateMovieProperty(remainingProperties[0])
         }

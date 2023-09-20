@@ -1,3 +1,4 @@
+import { Movie } from './movies.types'
 import { MoviesRepository, moviesRepository } from './movies.repository'
 
 export class MoviesService {
@@ -13,6 +14,10 @@ export class MoviesService {
 
   async getMovie(id: number) {
     return await this.repository.getById(id)
+  }
+
+  async createMovie(movieToBeCreated: Movie) {
+    return await this.repository.create(movieToBeCreated)
   }
 }
 

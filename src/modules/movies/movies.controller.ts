@@ -1,5 +1,6 @@
 import { MoviesService, moviesService } from './movies.service'
 import { rlManager } from '../../utils/readlineManager'
+import { Movie } from './movies.types'
 
 class MoviesController {
   private service: MoviesService
@@ -24,6 +25,11 @@ class MoviesController {
     } else {
       console.log('The value for the id must be a whole positive number!')
     }
+  }
+
+  async post(movie: Movie) {
+    const createdMovie = await this.service.createMovie(movie)
+    console.log(createdMovie)
   }
 }
 
