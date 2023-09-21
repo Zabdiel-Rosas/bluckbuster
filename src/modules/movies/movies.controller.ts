@@ -1,5 +1,4 @@
 import { MoviesService, moviesService } from './movies.service'
-import { rlManager } from '../../utils/readlineManager'
 import { Movie } from './movies.types'
 
 class MoviesController {
@@ -31,6 +30,11 @@ class MoviesController {
   async post(movie: Movie) {
     const createdMovie = await this.service.createMovie(movie)
     return createdMovie
+  }
+
+  async put(id: number, movieToUpdate: Movie) {
+    const updatedMovie = await this.service.updateMovie(id, movieToUpdate)
+    return updatedMovie
   }
 }
 
