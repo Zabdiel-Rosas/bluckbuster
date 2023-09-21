@@ -1,5 +1,4 @@
 import { MoviesService, moviesService } from './movies.service'
-import { rlManager } from '../../utils/readlineManager'
 import { Movie } from './movies.types'
 
 class MoviesController {
@@ -11,25 +10,31 @@ class MoviesController {
 
   async get() {
     const movies = await this.service.getAllMovies()
-    console.log(movies)
+    if (!movies) return 'Something went wrong!'
+    return movies
   }
 
   async getById(id: number) {
     if (id > 0) {
       const movie = await this.service.getMovie(id)
       if (movie) {
-        console.log(movie)
+        return movie
       } else {
-        console.log(`The movie with the id: ${id} wasn't found`)
+        return `The movie with the id: ${id} wasn't found`
       }
     } else {
-      console.log('The value for the id must be a whole positive number!')
+      return 'The value for the id must be a whole positive number!'
     }
   }
 
   async post(movie: Movie) {
     const createdMovie = await this.service.createMovie(movie)
-    console.log(createdMovie)
+    return createdMovie
+  }
+
+  async put(id: number, movieToUpdate: Movie) {
+    const updatedMovie = await this.service.updateMovie(id, movieToUpdate)
+    return updatedMovie
   }
 }
 

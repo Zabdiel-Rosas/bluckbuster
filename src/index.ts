@@ -21,7 +21,7 @@ function handler(answer: string) {
 
 function startApp() {
   rlManager.displayMenu()
-  rlManager.askUser('Select an option from the menu: ', handler)
+  rlManager.line(handler)
 }
 
 startApp()
