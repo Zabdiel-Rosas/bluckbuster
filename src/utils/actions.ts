@@ -106,4 +106,16 @@ export const ACTIONS = {
       }
     )
   },
+  DELETE_MOVIE: () => {
+    rlManager.askUser('Please enter the id of the movie: ', async (input) => {
+      const id = parseInt(input)
+      const deletedMovie = await moviesController.delete(id)
+
+      console.log(deletedMovie)
+      rlManager.displayMenu()
+    })
+  },
+  EXIT: () => {
+    rlManager.close()
+  },
 } as const
