@@ -19,6 +19,10 @@ export class MoviesService {
   async createMovie(movieToBeCreated: Movie) {
     return await this.repository.create(movieToBeCreated)
   }
+
+  async updateMovie(id: number, movieToBeUpdate: Movie) {
+    return await this.repository.update(id, movieToBeUpdate)
+  }
 }
 
 export const moviesService = new MoviesService(moviesRepository)

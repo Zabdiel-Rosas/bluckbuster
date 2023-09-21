@@ -23,6 +23,17 @@ export class MoviesRepository {
   async create(movie: Prisma.MovieCreateInput) {
     return await this.movieStorage.create({ data: movie })
   }
+
+  async update(id: number, movie: Prisma.MovieUpdateInput) {
+    return await this.movieStorage.update({
+      where: {
+        id,
+      },
+      data: {
+        ...movie,
+      },
+    })
+  }
 }
 
 export const moviesRepository = new MoviesRepository(movieStorage)

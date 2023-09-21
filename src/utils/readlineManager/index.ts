@@ -14,11 +14,18 @@ export class RlManager {
 
   displayMenu() {
     const options = Object.keys(ACTIONS)
+    console.log('\nBluckbuster App Menu\n')
 
     options.forEach((element, index) => {
       let option = element.replace(/_/g, ' ')
       console.log(`${index + 1} ${option}`)
     })
+
+    console.log('\nSelect an option from the menu:\n')
+  }
+
+  line(callback: (input: string) => void) {
+    return this.rl.on('line', callback)
   }
 
   askUser(question: string, callback: (answer: string) => void) {
