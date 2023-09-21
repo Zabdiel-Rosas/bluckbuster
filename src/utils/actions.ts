@@ -3,11 +3,18 @@ import { rlManager } from './readlineManager'
 import { Movie } from '../modules/movies/movies.types'
 
 export const ACTIONS = {
-  GET_ALL_MOVIES: () => moviesController.get(),
+  GET_ALL_MOVIES: async () => {
+    const result = await moviesController.get()
+    console.log(result)
+    rlManager.displayMenu()
+  },
   GET_MOVIE: () => {
-    rlManager.askUser('Please enter the id of the movie: ', (input) => {
+    rlManager.askUser('Please enter the id of the movie: ', async (input) => {
       const id = parseInt(input)
-      return moviesController.getById(id)
+      const movie = await moviesController.getById(id)
+
+      console.log(movie)
+      rlManager.displayMenu()
     })
   },
   CREATE_MOVIE: () => {
@@ -28,7 +35,7 @@ export const ACTIONS = {
     }
 
     const updateMovieProperty = (key: keyof Movie) => {
-      rlManager.askUser(`${key}: `, (input) => {
+      rlManager.askUser(`${key}: `, async (input) => {
         const value: string | number = key === 'year' ? parseInt(input) : input
 
         ;(movie[key] as string | number) = value
@@ -36,8 +43,10 @@ export const ACTIONS = {
         const remainingProperties = getRemainingProperties(key)
 
         if (remainingProperties.length === 0) {
-          rlManager.close()
-          return moviesController.post(movie)
+          const createdMovie = await moviesController.post(movie)
+          console.log(createdMovie)
+          rlManager.displayMenu()
+          return
         } else {
           updateMovieProperty(remainingProperties[0])
         }
