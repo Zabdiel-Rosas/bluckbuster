@@ -23,6 +23,10 @@ export class MoviesService {
   async updateMovie(id: number, movieToBeUpdate: Movie) {
     return await this.repository.update(id, movieToBeUpdate)
   }
+
+  async deleteMovie(id: number) {
+    return await this.repository.delete(id)
+  }
 }
 
 export const moviesService = new MoviesService(moviesRepository)

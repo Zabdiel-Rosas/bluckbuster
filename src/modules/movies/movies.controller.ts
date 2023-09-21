@@ -36,6 +36,10 @@ class MoviesController {
     const updatedMovie = await this.service.updateMovie(id, movieToUpdate)
     return updatedMovie
   }
+
+  async delete(id: number) {
+    return await this.service.deleteMovie(id)
+  }
 }
 
 export const moviesController = new MoviesController(moviesService)
