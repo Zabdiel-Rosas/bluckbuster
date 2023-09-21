@@ -34,6 +34,14 @@ export class MoviesRepository {
       },
     })
   }
+
+  async delete(id: number) {
+    return await this.movieStorage.delete({
+      where: {
+        id,
+      },
+    })
+  }
 }
 
 export const moviesRepository = new MoviesRepository(movieStorage)
